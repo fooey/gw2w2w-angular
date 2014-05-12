@@ -1,0 +1,47 @@
+#trackerGuilds
+	.table-responsive
+
+		//- table.table-condensed()
+		//- 	tr.guildInfo.scale-fade(ng-repeat="coGuild in matchGuildsClaimOrder[active.match.wvw_match_id] | orderBy:'timestamp':true")
+		//- 		td.guildEmblem
+		//- 			span.scale-fade(ng-if="guilds[coGuild.id]") 
+		//- 				img.emblem(ng-src="{{'http://guilds.gw2w2w.com/' + coGuild.id + '.svg'}}")
+		//- 			span.guildLoading(ng-if="!guilds[coGuild.id]")
+		//- 				i(class="fa fa-spinner fa-spin")
+		//- 		td.guildDetails
+		//- 			h3(id="{{coGuild.id}}")
+		//- 				span.scale-fade(ng-if="guilds[coGuild.id]")
+		//- 					| {{guilds[coGuild.id].guild_name}} [{{guilds[coGuild.id].tag}}]
+		//- 				span.guildLoading(ng-if="!guilds[coGuild.id]")
+		//- 					i(class="fa fa-spinner fa-spin")
+
+		//- 			ul.guildClaims.list-unstyled
+		//- 				li(ng-repeat="claim in matchGuilds[active.match.wvw_match_id][coGuild.id].claims | orderBy:'timestamp':true")
+		//- 					span.objectiveIcon: i.sprite(class="{{objectives[claim.id].type.type}}")
+		//- 					//- span.moment {{event.twitter}}
+		//- 					span.timestamp {{claim.timestamp | date:'hh:mm:ss'}}
+		//- 					//- span.eventType {{event.type}}
+		//- 					span.objective {{gw2.wvw.commonNames[active.lang.slug][claim.id]}}
+
+
+		table.table-condensed()
+			tr.guildInfo.scale-fade(ng-repeat="guild in matchGuilds[active.match.wvw_match_id] | toArray | orderBy:['latestClaim']:true")
+				td.guildEmblem
+					span.scale-fade(ng-if="guilds[guild.id]") 
+						img.emblem(ng-src="{{'http://guilds.gw2w2w.com/' + guild.id + '.svg'}}")
+					span.guildLoading(ng-if="!guilds[guild.id]")
+						i(class="fa fa-spinner fa-spin")
+				td.guildDetails
+					h1(id="{{guild.id}}")
+						span.scale-fade(ng-if="guilds[guild.id]")
+							| {{guilds[guild.id].guild_name}} [{{guilds[guild.id].tag}}]
+						span.guildLoading(ng-if="!guilds[guild.id]")
+							i(class="fa fa-spinner fa-spin")
+						small Latest Claim: {{moment(guild.latestClaim).format("dddd, MMMM Do YYYY, h:mm:ss a")}}
+
+					ul.guildClaims.list-unstyled
+						li(ng-repeat="claim in guild.claims | orderBy:'timestamp':true")
+							span.timestamp {{claim.timestamp | date:'hh:mm:ss'}}
+							span.objectiveIcon: i.sprite(class="{{objectives[claim.id].type.type}}")
+							span.objective {{gw2.wvw.commonNames[active.lang.slug][claim.id]}}
+							span.mapName {{gw2.wvw.mapObjectives[claim.id].mapName}}

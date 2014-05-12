@@ -1,0 +1,35 @@
+#overview.container
+	#overviewMatches.row
+		.col-md-12(ng-repeat="region in gw2.regions | orderBy:'name':true")
+			.panel.panel-default
+				.panel-heading
+					strong {{region.name}} :: World vs World Matchups
+				.panel-body
+					ul.list-unstyled
+						li.match(ng-repeat="match in matches | orderBy:'wvw_match_id':false | filter:{'region': region.key}")
+							.row
+								.col-md-20
+									ul.list-unstyled
+										li.team(ng-repeat="worldConfig in gw2.wvw.worldsConfig", class="{{worldConfig.color}}")
+											.row
+												.col-xs-16
+													a.worldName(ng-href="{{worldsById[match[worldConfig.worldId]][active.lang.slug].link}}")
+														span {{worldsById[match[worldConfig.worldId]][active.lang.slug].name}}
+												.col-xs-8.score.text-right
+													span.diff.bouncy-slide-right(ng-if="scoreDiff[match.wvw_match_id][worldConfig.index]")
+														| +{{scoreDiff[match.wvw_match_id][worldConfig.index] | number}}
+													span.worldScore
+														| {{scores[match.wvw_match_id][worldConfig.index] | number}}
+								.col-md-4.hidden-xs.hidden-sm
+									.pieChart.pull-right
+										img.pieChart(ng-src="{{'http://piely.net/60/' + scores[match.wvw_match_id].join(',') + '?strokeWidth=2'}}")
+
+	#overviewWorlds.row
+		.col-md-12(ng-repeat="region in gw2.regions | orderBy:'name':true")
+			.panel.panel-default
+				.panel-heading: strong {{region.name}} Servers
+				.panel-body
+					ul
+						li(ng-repeat="world in worlds[active.lang.slug] | orderBy:'name' | filter:{'region': region.key}")
+							a.worldName(ng-href="{{world.link}}")
+								span {{world.name}}

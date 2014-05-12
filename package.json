@@ -1,0 +1,32 @@
+{
+  "name": "gw2w2w-angular",
+  "version": "0.0.1",
+  "private": true,
+  "engines": {
+    "node": "~0.10.28",
+    "npm": "~1.4.9"
+  },
+  "dependencies": {
+    "async": "^0.8.0",
+    "bower": "*",
+    "errorhandler": "*",
+    "express": "4.x",
+    "jade": "^1.3.1",
+    "lodash": "*",
+    "morgan": "*",
+    "static-favicon": "^2.0.0-alpha"
+  },
+  "devDependencies": {
+    "grunt": "*",
+    "grunt-closure-compiler": "*",
+    "grunt-concurrent": "*",
+    "grunt-contrib-cssmin": "*",
+    "grunt-contrib-less": "*",
+    "grunt-contrib-uglify": "*",
+    "grunt-contrib-watch": "*",
+    "grunt-nodemon": "*"
+  },
+  "scripts": {
+    "postinstall": "node ./node_modules/bower/bin/bower install"
+  }
+}

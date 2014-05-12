@@ -1,0 +1,72 @@
+
+#tracker
+	.container
+
+		section#warmupWarning.alert.alert-warning.alert-dismissable.text-center.slide-down(ng-show="!timersAccurate")
+			button(type="button", class="close",  data-dismiss="alert",  aria-hidden="true") &times;
+			strong This app is not aware of RI timers started before loading the page. <br> After 5 minutes, all timers should be accurate to within a few seconds.
+
+		section#trackerScoreboard
+			.row
+				.col-sm-8(ng-repeat="(worldIndex, worldConfig) in gw2.wvw.worldsConfig")
+					.panel.team(ng-class="worldConfig.panelClass")
+						.panel-heading
+							a.team.worldName(ng-href="{{matchWorlds[worldIndex][active.lang.slug].link}}", ng-class="worldConfig.color")
+								| {{matchWorlds[worldIndex][active.lang.slug].name}}
+							.overallScore
+								span.scale-fade {{active.matchDetails.scores[worldIndex] | number}}
+								span.tick.scale-fade +{{holdings[worldConfig.color].tick | number}}
+							.holdings
+								span.holding
+									i.sprite(class="castle {{worldConfig.color}}")
+									span.holdingCount x{{holdings[worldConfig.color].castles | number}}
+								span.holding
+									i.sprite(class="keep {{worldConfig.color}}")
+									span.holdingCount x{{holdings[worldConfig.color].keeps | number}}
+								span.holding
+									i.sprite(class="tower {{worldConfig.color}}")
+									span.holdingCount x{{holdings[worldConfig.color].towers | number}}
+								span.holding
+									i.sprite(class="camp {{worldConfig.color}}")
+									span.holdingCount x{{holdings[worldConfig.color].camps | number}}
+
+
+		section#trackerObjectives
+			.row
+				.col-md-6(
+					ng-repeat="oGroup in gw2.wvw.objectiveGroups.slice(0,1)",
+					ng-include="'/partials/tracker-objectiveGroup'"
+				)
+				.col-md-18
+					.row
+						.col-md-8(
+							ng-repeat="oGroup in gw2.wvw.objectiveGroups.slice(1)",
+							ng-include="'/partials/tracker-objectiveGroup'"
+						)
+
+					.row
+						.col-md-24
+							section(ng-include="'/partials/tracker-log'")
+
+		.row
+			.col-md-6
+				section#trackerOptions
+					h3.page-header Options
+					ul.list-unstyled
+						li#audioToggle(ng-click="toggleAudio(); playNotificationSound();")
+							div(ng-show="audioEnabled")
+								span.fa-stack.fa-lg
+									i.fa.fa-volume-up.fa-stack-1x
+									i.fa.fa-circle-o.fa-stack-2x.text-success
+								span.label Audio Enabled
+							div(ng-show="!audioEnabled")
+								span.fa-stack.fa-lg
+									i.fa.fa-volume-up.fa-stack-1x
+									i.fa.fa-ban.fa-stack-2x.text-danger
+								span.label Audio Disabled
+			.col-md-18
+				section
+					h3.page-header Guilds
+					div(ng-include="'/partials/tracker-guilds'")
+
+

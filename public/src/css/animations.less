@@ -1,0 +1,50 @@
+/*
+*	http://lesshat.madebysource.com/
+*/
+@import "../../../bower_components/lesshat/build/lesshat.less";
+
+
+/*!
+*
+* https://github.com/Augus/ngAnimate
+*
+!*/
+@import (less) "./ng-animation.css";
+
+
+
+
+/*!
+*
+* animations
+*
+!*/
+
+
+/* cross fading between routes with ngView */
+
+#view-container {
+	position: relative;
+}
+
+#view-frame{
+	&.ng-enter,
+	&.ng-leave {
+		background: white;
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+	}
+	&.ng-enter{
+		.animation(0.5s fade-in);
+		z-index: 100;
+	}
+	&.ng-leave{
+		.animation(0.5s fade-out);
+		z-index: 99;
+	}
+}
+
+.keyframes(~'fade-in, from { opacity: 0; } to { opacity: 1; }');
+.keyframes(~'fade-out, from { opacity: 1; } to { opacity: 0; }');

@@ -1,0 +1,56 @@
+#trackerLog
+	ul.nav.nav-tabs
+		li(ng-class="{active: logFilters.map === 'all'}")
+			a(ng-click="logFilters.map='all'") All
+		li(ng-class="{active: logFilters.map === 'Center'}")
+			a(ng-click="logFilters.map='Center'") {{mapNamesByType.Center}}
+		li.red.team(ng-class="{active: logFilters.map === 'RedHome'}")
+			a(ng-click="logFilters.map='RedHome'") {{mapNamesByType.RedHome}}
+		li.blue.team(ng-class="{active: logFilters.map === 'BlueHome'}")
+			a(ng-click="logFilters.map='BlueHome'") {{mapNamesByType.BlueHome}}
+		li.green.team(ng-class="{active: logFilters.map === 'GreenHome'}")
+			a(ng-click="logFilters.map='GreenHome'") {{mapNamesByType.GreenHome}}
+	.panel.panel-default
+		.panel-body
+			ul.list-unstyled
+				li.header.slide-right
+					span.timestampHeader When
+					span.mapName Map
+					span.objectiveIcon
+					span.objective Objective
+					//- span.world Who
+					span.description Description
+						.btn-group.btn-group-xs
+							button.btn(ng-click="logFilters.captures = true; logFilters.claims = true;", ng-class="{'btn-primary': logFilters.captures && logFilters.claims}") All Events
+							button.btn(ng-click="logFilters.captures = true; logFilters.claims = false;", ng-class="{'btn-primary': logFilters.captures && !logFilters.claims}") Captures
+							button.btn(ng-click="logFilters.captures = false; logFilters.claims = true;", ng-class="{'btn-primary': logFilters.claims && !logFilters.captures}") Claims
+						.btn-group.btn-group-xs
+							button.btn.btn-danger(ng-click="timeline = []") Clear
+
+			ul#trackerLogEvents.list-unstyled
+				li.team.teamBgHover.event.slide-top(
+					ng-repeat="(key, event) in filteredEvents = (timeline | logFilter:logFilters) | orderBy:'timestamp':true | limitTo:50",
+					class="{{event.objective.owner.toLowerCase()}}",
+					ng-mouseenter="highlightObjective(event.objective.id)",
+					ng-mouseleave="deHighlightObjective(event.objective.id)",
+				)
+					span.moment {{event.twitter}}
+					span.timestamp {{event.timestamp | date:'hh:mm:ss'}}
+					span.mapName {{gw2.wvw.mapObjectives[event.objective.id].mapName.replace('Home', '')}}
+					//- span.eventType {{event.type}}
+					span.objectiveIcon
+						i.sprite(class="{{objectives[event.objective.id].type.type}} {{objectivesState[event.objective.id].owner | lowercase}}")
+					span.direction(ng-if="gw2.wvw.objectiveMeta[event.objective.id].d")
+						img(ng-src="{{getDirectionArrow(event.objective.id)}}.svg")
+					span.direction(ng-if="!gw2.wvw.objectiveMeta[event.objective.id].d")
+						i.fa.fa-crosshairs
+					span.objective
+						| {{gw2.wvw.commonNames[active.lang.slug][event.objective.id]}}
+					//- span.color {{event.objective.owner}}
+					//- span.world {{matchWorldsByColor[event.objective.owner.toLowerCase()][active.lang.slug].name}} {{event.type}}
+					span.description(ng-if="event.type === 'newOwner'") Captured by {{matchWorldsByColor[event.objective.owner.toLowerCase()][active.lang.slug].name}}
+					span.description(ng-if="event.type === 'newClaimer'") Claimed by
+						a.guildName.scale-fade(ng-if="guilds[event.objective.owner_guild]", ng-click="gotoGuild(event.objective.owner_guild)")
+							| {{guilds[event.objective.owner_guild].guild_name}} [{{guilds[event.objective.owner_guild].tag}}]
+						span.guildLoading(ng-if="!guilds[event.objective.owner_guild]")
+							i(class="fa fa-spinner fa-spin")

@@ -1,0 +1,17 @@
+section(ng-include="'/partials/navbar'")
+
+section(
+	ng-if="appMode === 'overview'",
+	ng-include="'/partials/overview'",
+	ng-controller="OverviewCtrl"
+)
+section(
+	ng-if="appMode === 'tracker'",
+	ng-include="'/partials/tracker'",
+	ng-controller="TrackerCtrl"
+)
+section(
+	ng-if="appMode === 'error'",
+	ng-include="'/partials/error'",
+	ng-controller="ErrorCtrl"
+)

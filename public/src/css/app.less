@@ -1,0 +1,575 @@
+/*
+*	http://lesshat.madebysource.com/
+*/
+@import "../../../bower_components/lesshat/build/lesshat.less";
+
+
+/*!
+*
+*	app
+*
+!*/
+
+
+/*
+*	Variables
+*/
+
+@red: #a94442;
+@redBg: #f2dede;
+
+@blue: #31708f;
+@blueBg: #d9edf7;
+
+@green: #3c763d;
+@greenBg: #dff0d8;
+
+@mono: Menlo, Monaco, Consolas, "Courier New", monospace;
+
+
+
+
+body {
+	overflow-y: scroll;
+}
+
+
+.score, .diff{
+	font-family: @mono;
+}
+
+.strong{
+	font-weight: bold;
+}
+
+
+.team {
+	&.red, &.red a{color: @red;}
+	&.blue, &.blue a{color: @blue;}
+	&.green, &.green a{color: @green; }
+}
+.teamBg {
+	&.red, .red &, &Hover.red:hover {background-color: @redBg !important;}
+	&.blue, .blue &, &Hover.blue:hover {background-color: @blueBg !important;}
+	&.green, .green &, &Hover.green:hover {background-color: @greenBg !important;}
+}
+
+
+#navbar{
+	.worldNameTitle{
+		font-weight: bold;
+		font-size: 14pt
+	}
+
+	.worlds.dropdown{
+		ul.dropdown-menu{
+			li{
+				font-size: 10pt;
+			}
+
+		}
+	}
+
+	.divider-left{
+		border-left: 1px solid #e5e5e5;
+	}
+
+	#remoteIndicator {
+		font-size: 24px;
+		line-height: 50px;
+		margin-right: .5em;
+		.opacity(.5);
+	}
+}
+
+
+#overviewMatches {
+	li.match{
+		padding: .5em 0;
+
+		& + li {
+			border-top: 1px solid #eee;
+		}
+	}
+
+	li.team {
+		height: 20px;
+		line-height: 20px;
+		border-radius: 6px;
+	}
+
+	.diff {
+		margin-right: .5em;
+		white-space: nowrap;
+	}
+
+	.pieChart{
+		width: 60px;
+		height: 60px;
+	}
+
+}
+
+#warmupWarning {
+	.alert-dismissable .close{
+		// right: 0;
+	}
+}
+
+
+#trackerScoreboard {
+	.panel-heading{
+		font-weight: bold;
+		font-size: 12pt;
+		text-align:center;
+		white-space: nowrap;
+		overflow: hidden;
+		border-bottom: none;
+	}
+
+	.tick {
+		padding-left: .5em;
+	}
+
+	.holdings{
+		text-align: center;
+		line-height: 15px;
+		height: 15px;
+		.holding{
+			display: inline-block;
+			padding: 0 .5em;
+			line-height: 15px;
+			height: 15px;
+
+			.holdingCount{
+				display: inline-block;
+				line-height: 15px;
+				height: 15px;
+				padding-left: .25em;
+				font-size: 10pt;
+			}
+		}
+	}
+}
+
+
+#trackerObjectives {
+	.objectiveGroup{
+		padding: 0 4px;
+		.border-radius(4px);
+		border: 1px solid #fff;
+
+		&.active{
+			// background-color: #f9f9f9;
+			// border: 1px solid darken(#f9f9f9, 10%);
+			h4{}
+		}
+		&.inactive{
+			.opacity(.6);
+			.blur(1);
+			.scale(.95);
+		}
+
+		.row{
+			margin: 0;
+			padding: 0;
+
+			@iterations: 24;
+			.col-loop (@i) when (@i > 0) {
+				.col-xs-@{i} {
+					margin: 0;
+					padding: 0;
+				}
+			    .col-loop(@i - 1);
+			}
+			.col-loop(@iterations);
+		}
+	}
+
+	h4{
+		margin: 4px 0 6px 0;
+		padding: 2px 4px;
+		cursor: pointer;
+		.border-radius(2);
+		border-bottom: 1px solid #ccc;
+	}
+	.scoreboard{
+		padding: 0 8px;
+	}
+
+	.objectiveSection {
+		margin-top: 1em;
+
+	}
+
+	.row.team{
+		font-size: 9pt;
+		height: 15px;
+		line-height: 15px;
+		margin: 4px 0;
+
+		span{
+			display: inline-block;
+			height: 15px;
+			line-height: 15px;
+			white-space: nowrap;
+			text-overflow: ellipsis;
+			overflow: hidden;
+		}
+	}
+	.highlight{
+		background-color: #ffc;
+	}
+	// .objective{}
+
+	.objectiveIcon{
+		margin-right: 2px;
+	}
+	.direction {
+		.opacity(.5);
+		width: 10px;
+		img{
+			width: 8px;
+			height: 8px;
+			line-height: 15px;
+			.opacity(.75);
+		}
+		i{
+			font-size: 10px;
+		}
+	}
+	.objectiveName{}
+	.sprite{}
+
+	.timer, .guildTag{
+		font-size: 7pt;
+	}
+	.timer{
+		margin-left: .25em;
+		background-color: #ffc;
+		padding: 0 4px;
+		border: 1px solid darken(#ffc, 40%);
+		.border-radius(4px);
+
+		&.timer-placeholder{
+			background-color: #eee;
+			border: 1px solid darken(#eee, 10%);
+			.opacity(.5);
+			.blur(1);
+		}
+	}
+	.guildTag a{
+		cursor: pointer;
+	}
+}
+
+
+
+#trackerLog {
+	margin-top: 1em;
+
+	.nav-tabs{
+		margin-left: 8px;
+		border-bottom: none;
+		.user-select(none);
+
+		li {
+			a {
+				padding: .3em 1em;
+				cursor: pointer;
+				font-size: 9pt;
+			}
+		}
+	}
+
+	.panel{
+
+		.panel-body{
+			border-top: none;
+			padding: .5em;
+			height: 200px;
+			overflow-y: scroll;
+			overflow-x: hidden;
+		}
+
+		ul{
+			margin: 0;
+			padding: 0;
+		}
+
+		li{
+			font-size: 8pt;
+			height: 15px;
+			line-height: 15px;
+			margin: 4px 0;
+
+			&:nth-child(even){
+				background-color: #f9f9f9;
+			}
+
+			&.header{
+				font-weight: bold;
+				border-bottom: 1px solid #eee;
+
+				.btn-group-xs {
+					line-height: 20px;
+					padding: 0 0 0 .5em;
+					margin: 0;
+					height: 18px;
+					display: inline-block;
+					.btn{
+						padding: 0 6px;
+						font-size: 7.5pt;
+						line-height: 9pt;
+					}
+				}
+
+			}
+			span{
+				display: inline-block;
+				height: 15px;
+				line-height: 15px;
+				white-space: nowrap;
+				text-overflow: ellipsis;
+				overflow: hidden;
+			}
+		}
+	}
+
+	.timestampHeader{
+		width: (3em + 5em);
+		text-align: center;
+	}
+
+	.objectiveIcon{
+		margin-right: 2px;
+	}
+	.direction {
+		.opacity(.5);
+		width: 10px;
+		img{
+			width: 8px;
+			height: 8px;
+			line-height: 15px;
+			.opacity(.75);
+		}
+		i{
+			font-size: 10px;
+		}
+	}
+	.moment{
+		width: 3em;
+		text-align: center;
+	}
+	.timestamp{
+		width: 5em;
+	}
+	.mapName{
+		width: 5em;
+	}
+	.objective{
+		width: 15em;
+	}
+	.world{
+		width: 10em;
+	}
+
+	.guildLoading{
+		line-height: 10px;
+		height: 10px;
+		position: relative;
+		padding-left: .25em;
+	}
+	a.guildName{
+		cursor: pointer
+	}
+}
+
+@emblemSize: 128px;
+#trackerGuilds{
+
+	table{width:100%}
+
+	.guildEmblem{
+		vertical-align: top;
+		text-align: center;
+		width: (@emblemSize * 1.25);
+
+		.emblem{
+			// width: @emblemSize;
+			// height: @emblemSize;
+			// margin: 8px;
+		}
+	}
+
+	.guildInfo{
+		&:nth-child(even){
+			background-color: #f9f9f9;
+		}
+		h1 {
+			small{
+				margin-top: 2px;
+				display: block;
+				font-size: 7pt;
+				text-indent: 1em;
+				font-style: italic;
+			}
+		}
+	}
+
+
+	.guildDetails{
+		vertical-align: top;
+	}
+
+	.guildClaims{
+		margin-left: 1em;
+
+		li{
+			font-size: 8pt;
+
+			&:nth-child(even){
+				background-color: #f9f9f9;
+			}
+		}
+
+		span{
+			display: inline-block;
+			height: 15px;
+			line-height: 15px;
+			white-space: nowrap;
+			text-overflow: ellipsis;
+			overflow: hidden;
+		}
+	}
+
+	.objectiveIcon{
+		width: 20px;
+	}
+	.timestamp{
+		width: 5em;
+	}
+	.mapName{
+		width: 8em;
+	}
+	.objective{
+		width: 15em;
+	}
+}
+
+
+#trackerOptions {
+	#audioToggle {
+		.user-select(none);
+		cursor: pointer;
+		.label{
+			display: inline-block;
+			color: #333;
+			font-size: 14pt;
+			line-height: 2em;
+			font-weight: normal;
+		}
+	}
+}
+
+
+.direction {
+	.fa-arrow-up {
+		&.rotate-west {
+			.rotate(-45deg);
+		}
+		&.rotate-east {
+			.rotate(45deg);
+		}
+	}
+	.fa-arrow-down {
+		&.rotate-west {
+			.rotate(45deg);
+		}
+		&.rotate-east {
+			.rotate(-45deg);
+		}
+	}
+}
+
+
+
+/*
+*
+*	OBJECTIVE SPRITES
+*
+*/
+@spriteHeight:		-15px;
+@spriteRed:			0 * @spriteHeight;
+@spriteBlue:		1 * @spriteHeight;
+@spriteGreen:		2 * @spriteHeight;
+@spriteNeutral:		3 * @spriteHeight;
+
+@spriteWidth:		-15px;
+@spriteCastle:		0 * @spriteWidth;
+@spriteKeep:		1 * @spriteWidth;
+@spriteTower: 		2 * @spriteWidth;
+@spriteCamp:		3 * @spriteWidth;
+@spriteTemple:		4 * @spriteWidth;
+@spriteHollow:		5 * @spriteWidth;
+@spriteEstate:		6 * @spriteWidth;
+@spriteOverlook:	7 * @spriteWidth;
+@spriteAscent:		8 * @spriteWidth;
+
+@spriteBloodlust:	9 * @spriteWidth;
+
+.sprite {
+	background-image: url(/img/sprite3-60x150.png);
+	background-repeat: no-repeat;
+	display: inline-block;
+	width: 15px;
+	height: 15px;
+	line-height: 20px;
+
+	&, &.neutral {
+		&, &.camp 	{background-position: @spriteNeutral @spriteCamp;}
+		&.castle	{background-position: @spriteNeutral @spriteCastle;}
+		&.keep		{background-position: @spriteNeutral @spriteKeep;}
+		&.tower		{background-position: @spriteNeutral @spriteTower;}
+		&.hollow	{background-position: @spriteNeutral @spriteTemple;}
+		&.estate	{background-position: @spriteNeutral @spriteEstate;}
+		&.overlook	{background-position: @spriteNeutral @spriteOverlook;}
+		&.ascent	{background-position: @spriteNeutral @spriteAscent;}
+	}
+
+	&.red {
+		&, &.camp 	{background-position: @spriteRed @spriteCamp;}
+		&.castle	{background-position: @spriteRed @spriteCastle;}
+		&.keep		{background-position: @spriteRed @spriteKeep;}
+		&.tower		{background-position: @spriteRed @spriteTower;}
+		&.hollow	{background-position: @spriteRed @spriteTemple;}
+		&.estate	{background-position: @spriteRed @spriteEstate;}
+		&.overlook	{background-position: @spriteRed @spriteOverlook;}
+		&.ascent	{background-position: @spriteRed @spriteAscent;}
+	}
+
+	&.blue {
+		&, &.camp 	{background-position: @spriteBlue @spriteCamp;}
+		&.castle	{background-position: @spriteBlue @spriteCastle;}
+		&.keep		{background-position: @spriteBlue @spriteKeep;}
+		&.tower		{background-position: @spriteBlue @spriteTower;}
+		&.hollow	{background-position: @spriteBlue @spriteTemple;}
+		&.estate	{background-position: @spriteBlue @spriteEstate;}
+		&.overlook	{background-position: @spriteBlue @spriteOverlook;}
+		&.ascent	{background-position: @spriteBlue @spriteAscent;}
+	}
+
+	&.green {
+		&, &.camp 	{background-position: @spriteGreen @spriteCamp;}
+		&.castle	{background-position: @spriteGreen @spriteCastle;}
+		&.keep		{background-position: @spriteGreen @spriteKeep;}
+		&.tower		{background-position: @spriteGreen @spriteTower;}
+		&.hollow	{background-position: @spriteGreen @spriteTemple;}
+		&.estate	{background-position: @spriteGreen @spriteEstate;}
+		&.overlook	{background-position: @spriteGreen @spriteOverlook;}
+		&.ascent	{background-position: @spriteGreen @spriteAscent;}
+	}
+
+
+	&.bloodlust	{background-position: @spriteRed @spriteBloodlust;}
+}

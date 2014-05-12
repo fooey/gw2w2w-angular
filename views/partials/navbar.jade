@@ -1,0 +1,32 @@
+#navbar.navbar.navbar-default(role="navigation")
+	.navbar-header
+		button.navbar-toggle(type="button", data-toggle="collapse", data-target=".navbar-ex1-collapse")
+			span.sr-only Toggle navigation
+			span.icon-bar
+			span.icon-bar
+			span.icon-bar
+
+		a.navbar-brand(ng-href="/{{active.lang.slug}}") GW2W2W.com
+
+	.collapse.navbar-collapse.navbar-ex1-collapse
+		ul.nav.navbar-nav
+			li(ng-if="active.world")
+				a.worldNameTitle(ng-href="{{active.world.link}}")
+					| {{active.world.name}}
+
+		ul.nav.navbar-nav.pull-right.langLinks.divider-left
+			li(ng-repeat="langObj in gw2.langs | orderBy:'sort'", ng-class="{active: langObj.slug === active.lang}")
+				a(ng-if="active.world", ng-href="{{worldsById[active.world.id][langObj.slug].link}}")
+					| {{langObj.label}}
+				a(ng-if="!active.world", ng-href="{{langObj.href}}", title="{{langObj.name}}")
+					| {{langObj.label}}
+
+		ul.nav.navbar-nav.pull-right.regionWorlds
+			li#remoteIndicator(ng-show="requestsInProgress()")
+				i(class="fa fa-spinner fa-spin", title="Waiting for remote data...")
+			li(class="worlds dropdown", ng-repeat="region in gw2.regions | orderBy:'name':true", ng-class="{active: region.key === active.world.region}")
+				a(href="#", class="dropdown-toggle", data-toggle="dropdown") {{region.key}} Worlds
+					b(class="caret")
+				ul(class="dropdown-menu")
+					li(ng-repeat="world in worlds[active.lang.slug] | orderBy:'name' | filter:{'region': region.key}", ng-class="{active: world.slug === active.world.slug}")
+						a.worldName(ng-href="{{world.link}}") {{world.name}}
