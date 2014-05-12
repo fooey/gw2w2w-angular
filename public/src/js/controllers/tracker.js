@@ -54,7 +54,7 @@ function(
 
 	$scope.getDirectionArrow = function(objectiveId) {
 		var meta = $scope.gw2.wvw.objectiveMeta[objectiveId];
-		var src = ['/img/min/arrow'];
+		var src = ['/dist/img/min/arrow'];
 
 		if (meta.n) {
 			src.push('north');
@@ -310,7 +310,7 @@ function(
 
 	function __setupAudio() {
 		var chirp = document.createElement('audio');
-        chirp.setAttribute('src', '/audio/beep-27.mp3');
+        chirp.setAttribute('src', '/dist/audio/beep-27.mp3');
 
         $scope.audioEnabled = false;
         $scope.toggleAudio = function() {
