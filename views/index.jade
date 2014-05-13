@@ -19,6 +19,14 @@ html(lang='en', ng-app='gw2app')
 
 
 
+
+		// PRE-RENDERED ANGULAR TEMPLATES
+		each partial, index in partials
+			script(type="text/ng-template", id="/#{partial.renderPath}") !{partial.html}
+
+
+
+
 		if process.env.NODE_ENV === 'development'
 			script(src='//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.js')
 			script(src='//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.js')
@@ -67,28 +75,5 @@ html(lang='en', ng-app='gw2app')
 
 
 
-		//- Angular Templates
 
-		script(type="text/ng-template", id="/partials/app")
-			include partials/app
-
-		script(type="text/ng-template", id="/partials/navbar")
-			include partials/navbar
-
-
-		script(type="text/ng-template", id="/partials/overview")
-			include partials/overview
-
-
-		script(type="text/ng-template", id="/partials/tracker")
-			include partials/tracker
-
-		script(type="text/ng-template", id="/partials/tracker-guilds")
-			include partials/tracker-guilds
-
-		script(type="text/ng-template", id="/partials/tracker-log")
-			include partials/tracker-log
-
-		script(type="text/ng-template", id="/partials/tracker-objectiveGroup")
-			include partials/tracker-objectiveGroup
 
