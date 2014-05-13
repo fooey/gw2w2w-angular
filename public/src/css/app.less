@@ -55,6 +55,92 @@ body {
 }
 
 
+
+
+.objective {
+	display: block;
+	font-size: 9pt;
+	height: 15px;
+	line-height: 15px;
+	margin: 4px 0;
+
+	span{
+		display: inline-block;
+		height: 15px;
+		line-height: 15px;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+		overflow: hidden;
+	}
+
+
+	&.highlight{
+		background-color: #ffc;
+	}
+
+
+	.moment{
+		width: 3em;
+		text-align: center;
+	}
+	.timestamp{
+		width: 5em;
+	}
+	.mapName{
+		width: 5em;
+	}
+	.world{
+		width: 10em;
+	}
+
+
+	.icon{
+		margin-right: 2px;
+	}
+
+	.direction {
+		.opacity(.5);
+		width: 10px;
+		img{
+			width: 8px;
+			height: 8px;
+			line-height: 15px;
+			.opacity(.75);
+		}
+		i{
+			font-size: 10px;
+		}
+	}
+
+	.name {}
+
+	.guildTag, .guildName {
+		a {
+			cursor: pointer;
+		}
+	}
+
+	.timer span{
+		margin-left: .25em;
+		background-color: #ffc;
+		padding: 0 4px;
+		border: 1px solid darken(#ffc, 40%);
+		.border-radius(4px);
+
+		&.timer-placeholder {
+			background-color: #eee;
+			border: 1px solid darken(#eee, 10%);
+			.opacity(.5);
+			.blur(1);
+		}
+	}
+
+}
+
+
+
+
+
 #navbar{
 	.worldNameTitle{
 		font-weight: bold;
@@ -101,6 +187,11 @@ body {
 	.diff {
 		margin-right: .5em;
 		white-space: nowrap;
+	}
+
+	.chartLoading {
+		font-size: 32px;
+		line-height: 60px;
 	}
 
 	.pieChart{
@@ -153,37 +244,15 @@ body {
 }
 
 
+
+
+
 #trackerObjectives {
 	.objectiveGroup{
 		padding: 0 4px;
 		.border-radius(4px);
 		border: 1px solid #fff;
 
-		&.active{
-			// background-color: #f9f9f9;
-			// border: 1px solid darken(#f9f9f9, 10%);
-			h4{}
-		}
-		&.inactive{
-			.opacity(.6);
-			.blur(1);
-			.scale(.95);
-		}
-
-		.row{
-			margin: 0;
-			padding: 0;
-
-			@iterations: 24;
-			.col-loop (@i) when (@i > 0) {
-				.col-xs-@{i} {
-					margin: 0;
-					padding: 0;
-				}
-			    .col-loop(@i - 1);
-			}
-			.col-loop(@iterations);
-		}
 	}
 
 	h4{
@@ -202,64 +271,14 @@ body {
 
 	}
 
-	.row.team{
-		font-size: 9pt;
-		height: 15px;
-		line-height: 15px;
-		margin: 4px 0;
-
-		span{
-			display: inline-block;
-			height: 15px;
-			line-height: 15px;
-			white-space: nowrap;
-			text-overflow: ellipsis;
-			overflow: hidden;
+	.objective {
+		.guildTag, .timer {
+			float: right;
+			font-size: 7pt;
 		}
-	}
-	.highlight{
-		background-color: #ffc;
-	}
-	// .objective{}
-
-	.objectiveIcon{
-		margin-right: 2px;
-	}
-	.direction {
-		.opacity(.5);
-		width: 10px;
-		img{
-			width: 8px;
-			height: 8px;
-			line-height: 15px;
-			.opacity(.75);
+		.guildTag {
+			margin-right: 2px;
 		}
-		i{
-			font-size: 10px;
-		}
-	}
-	.objectiveName{}
-	.sprite{}
-
-	.timer, .guildTag{
-		font-size: 7pt;
-	}
-	.timer{
-		margin-left: .25em;
-		background-color: #ffc;
-		padding: 0 4px;
-		border: 1px solid darken(#ffc, 40%);
-		.border-radius(4px);
-
-		&.timer-placeholder{
-			background-color: #eee;
-			border: 1px solid darken(#eee, 10%);
-			.opacity(.5);
-			.blur(1);
-		}
-	}
-	.guildTag a{
-		cursor: pointer;
 	}
 }
 
@@ -283,7 +302,6 @@ body {
 	}
 
 	.panel{
-
 		.panel-body{
 			border-top: none;
 			padding: .5em;
@@ -292,96 +310,86 @@ body {
 			overflow-x: hidden;
 		}
 
-		ul{
+		ul, li{
 			margin: 0;
 			padding: 0;
 		}
+	}
 
-		li{
-			font-size: 8pt;
+	.logHeader{
+		font-weight: bold;
+		border-bottom: 1px solid #eee;
+
+		span {
+			display: inline-block;
 			height: 15px;
 			line-height: 15px;
-			margin: 4px 0;
+			white-space: nowrap;
+			text-overflow: ellipsis;
+			overflow: hidden;
+			font-size: 9pt;
+		}
 
-			&:nth-child(even){
-				background-color: #f9f9f9;
-			}
+		.when {
+			width: 8em;
+		}
 
-			&.header{
-				font-weight: bold;
-				border-bottom: 1px solid #eee;
+		.where {
+			width: 5em;
+		}
 
-				.btn-group-xs {
-					line-height: 20px;
-					padding: 0 0 0 .5em;
-					margin: 0;
-					height: 18px;
-					display: inline-block;
-					.btn{
-						padding: 0 6px;
-						font-size: 7.5pt;
-						line-height: 9pt;
-					}
-				}
+		.icon{
+			width: 17px;
+		}
 
-			}
-			span{
-				display: inline-block;
-				height: 15px;
-				line-height: 15px;
-				white-space: nowrap;
-				text-overflow: ellipsis;
-				overflow: hidden;
+		.direction {
+			width: 10px;
+		}
+
+		.name{
+			width: 12em;
+		}
+
+		.filterButtons {
+			float: right;
+		}
+
+		.btn-group-xs {
+			line-height: 20px;
+			padding: 0 0 0 .5em;
+			margin: 0;
+			height: 18px;
+			display: inline-block;
+			.btn{
+				padding: 0 6px;
+				font-size: 7.5pt;
+				line-height: 9pt;
 			}
 		}
 	}
 
-	.timestampHeader{
-		width: (3em + 5em);
-		text-align: center;
+	.objective:nth-child(even){
+		background-color: #f9f9f9;
 	}
 
-	.objectiveIcon{
-		margin-right: 2px;
-	}
-	.direction {
-		.opacity(.5);
-		width: 10px;
-		img{
-			width: 8px;
-			height: 8px;
-			line-height: 15px;
-			.opacity(.75);
-		}
-		i{
-			font-size: 10px;
-		}
-	}
-	.moment{
+	.objective .moment{
 		width: 3em;
-		text-align: center;
 	}
-	.timestamp{
+	.objective .timestamp{
 		width: 5em;
 	}
-	.mapName{
+	.objective .mapName{
 		width: 5em;
 	}
-	.objective{
-		width: 15em;
+	.objective .name{
+		width: 12em;
 	}
-	.world{
-		width: 10em;
+	.objective .descriptionType{
+		width: 12em;
 	}
-
-	.guildLoading{
-		line-height: 10px;
-		height: 10px;
-		position: relative;
-		padding-left: .25em;
-	}
-	a.guildName{
-		cursor: pointer
+	.objective .guildName{
+		float: right;
+		margin-right: 4px;
 	}
 }
 
@@ -407,6 +415,8 @@ body {
 			background-color: #f9f9f9;
 		}
 		h1 {
+			font-size: 21pt;
+			margin-bottom: 16px;
 			small{
 				margin-top: 2px;
 				display: block;
@@ -415,45 +425,9 @@ body {
 				font-style: italic;
 			}
 		}
-	}
-
-
-	.guildDetails{
-		vertical-align: top;
-	}
-
-	.guildClaims{
-		margin-left: 1em;
-
-		li{
-			font-size: 8pt;
-
-			&:nth-child(even){
-				background-color: #f9f9f9;
-			}
+		.timer {
+			width: 4em;
 		}
-
-		span{
-			display: inline-block;
-			height: 15px;
-			line-height: 15px;
-			white-space: nowrap;
-			text-overflow: ellipsis;
-			overflow: hidden;
-		}
-	}
-
-	.objectiveIcon{
-		width: 20px;
-	}
-	.timestamp{
-		width: 5em;
-	}
-	.mapName{
-		width: 8em;
-	}
-	.objective{
-		width: 15em;
 	}
 }
 
@@ -473,24 +447,6 @@ body {
 }
 
 
-.direction {
-	.fa-arrow-up {
-		&.rotate-west {
-			.rotate(-45deg);
-		}
-		&.rotate-east {
-			.rotate(45deg);
-		}
-	}
-	.fa-arrow-down {
-		&.rotate-west {
-			.rotate(45deg);
-		}
-		&.rotate-east {
-			.rotate(-45deg);
-		}
-	}
-}
 
 
 
@@ -499,6 +455,7 @@ body {
 *	OBJECTIVE SPRITES
 *
 */
+
 @spriteHeight:		-15px;
 @spriteRed:			0 * @spriteHeight;
 @spriteBlue:		1 * @spriteHeight;

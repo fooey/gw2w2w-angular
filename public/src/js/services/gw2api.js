@@ -172,7 +172,7 @@ function(
 					__INSTANCE.remotesInProgress[config.cacheKey] = false;
 
 					if (config.fnValidator(remoteData)) {
-						// setTimeout(callback.bind(null, remoteData), 500);	// latency simulator
+						// setTimeout(callback.bind(null, remoteData), 50);	// latency simulator
 						callback(null, remoteData);
 					}
 					else {

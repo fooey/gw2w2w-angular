@@ -40,8 +40,18 @@
 						small Latest Claim: {{moment(guild.latestClaim).format("dddd, MMMM Do YYYY, h:mm:ss a")}}
 
 					ul.guildClaims.list-unstyled
-						li(ng-repeat="claim in guild.claims | orderBy:'timestamp':true")
-							span.timestamp {{claim.timestamp | date:'hh:mm:ss'}}
-							span.objectiveIcon: i.sprite(class="{{objectives[claim.id].type.type}}")
-							span.objective {{gw2.wvw.commonNames[active.lang.slug][claim.id]}}
-							span.mapName {{gw2.wvw.mapObjectives[claim.id].mapName}}
+						li.team(
+							ng-repeat="claim in guild.claims | orderBy:'timestamp':true",
+							class="{{objectivesState[claim.id].owner.toLowerCase()}}",
+						)
+							gw2-objective(
+								columns="['timer', 'timestamp', 'mapName', 'icon', 'direction', 'name']",
+								timestamp="claim.timestamp",
+								objective-map-name="gw2.wvw.mapObjectives[claim.id].mapName.replace('Home', '')",
+								common-name="gw2.wvw.commonNames[active.lang.slug][claim.id]",
+								objective-id="claim.id",
+								objective="objectives[claim.id]",
+								objective-state="objectivesState[claim.id]",
+								objective-meta="gw2.wvw.objectiveMeta[claim.id]",
+								objective-guild="guilds[objectivesState[claim.id].owner_guild]",
+							)

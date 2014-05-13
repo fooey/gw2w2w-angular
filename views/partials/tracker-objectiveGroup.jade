@@ -10,22 +10,13 @@ section.objectiveGroup(
 			.col-xs-8.text-right.name {{active.matchDetails.maps[oGroup.mapIndex].scores[worldConfig.index] | number}}
 
 	div.objectiveSection(ng-repeat="(sectionIndex, section) in oGroup.sections")
-		.row.team(ng-repeat="(objIndex, objectiveId) in section.objectives", class="{{objectivesState[objectiveId].owner | lowercase}}", id="objective{{objectiveId}}")
-			.col-xs-16.objective
-				span.objectiveIcon
-					i.sprite(class="{{objectives[objectiveId].type.type}} {{objectivesState[objectiveId].owner | lowercase}}", title="{{objectives[objectiveId].type.type}}")
-				span.direction(ng-if="gw2.wvw.objectiveMeta[objectiveId].d")
-					img(width=15, height=15, ng-src="{{getDirectionArrow(objectiveId)}}.svg")
-				span.direction(ng-if="!gw2.wvw.objectiveMeta[objectiveId].d")
-					i.fa.fa-crosshairs
-				span.objectiveName {{gw2.wvw.commonNames[active.lang.slug][objectiveId]}}
-			.col-xs-8.text-right
-				span.guildTag.scale-fade(ng-if="objectivesState[objectiveId].owner_guild && guilds[objectivesState[objectiveId].owner_guild]")
-					a(ng-click="gotoGuild(objectivesState[objectiveId].owner_guild)", title="{{guilds[objectivesState[objectiveId].owner_guild].guild_name}}")
-						| [{{guilds[objectivesState[objectiveId].owner_guild].tag}}]
-				span.guildLoading(ng-if="objectivesState[objectiveId].owner_guild && !guilds[objectivesState[objectiveId].owner_guild]")
-					i(class="fa fa-spinner fa-spin")
-				span.timer.scale-fade(
-					ng-if="objectivesState[objectiveId].buffRemaining > 0",
-					ng-class="{'timer-placeholder': objectivesState[objectiveId].lastCaptured === initTime}"
-				) {{objectivesState[objectiveId].buffRemaining | date:'m:ss'}}
+		div(ng-repeat="(objIndex, objectiveId) in section.objectives", class="{{objectivesState[objectiveId].owner | lowercase}}", id="objective{{objectiveId}}")
+			gw2-objective(
+				columns="['icon', 'direction', 'name', 'timer', 'guildTag']",
+				common-name="gw2.wvw.commonNames[active.lang.slug][objectiveId]",
+				objective-id="objectiveId",
+				objective="objectives[objectiveId]",
+				objective-state="objectivesState[objectiveId]",
+				objective-meta="gw2.wvw.objectiveMeta[objectiveId]",
+				objective-guild="guilds[objectivesState[objectiveId].owner_guild]"
+			)

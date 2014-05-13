@@ -398,6 +398,7 @@ function(
 		angular.forEach(objectives, function(objective) {
 			// now = _.random(dateSeconds() - 1000 * 60 * 10, dateSeconds());
 			// now = Math.round(now / 1000) * 1000
+			objective.initTime = $scope.initTime;
 			objective.lastCaptured = objective.lastCaptured || $scope.initTime;
 
 			objective.buffRemaining = (objective.lastCaptured + 1000 * 60 * 5);
@@ -558,10 +559,9 @@ function(
 	function __appendToTimeline(timestamp, type, objective) {
 		var objCloned = _.cloneDeep(objective);
 		$scope.timeline.push({
-			timestamp: timestamp,
 			type: type,
 			objective: objCloned,
-			twitter: moment(timestamp).twitter(),
+			timestamp: timestamp,
 		});
 	}
 
@@ -577,7 +577,7 @@ function(
 	function __updateTimers() {
 		async.parallel([
 			__updateBuffTimers,
-			__updateTimelineTwitterMoments,
+			__updateTwitterMoments,
 		], angular.noop);
 	};
 
@@ -603,13 +603,18 @@ function(
 	}
 
 
-	function __updateTimelineTwitterMoments(callback) {
+	function __updateTwitterMoments(callback) {
+		var $moments = $('.objective .moment span');
 		if ($scope.timeline && $scope.timeline.length) {
-			async.map(
-				$scope.timeline,
-				function(item, next) {
-					item.twitter = moment(item.timestamp).twitter();
-					next(null, item);
+			async.each(
+				$moments,
+				function(_moment, next) {
+					
+					var $moment = $(_moment);
+					var timestamp = $moment.data('timestamp');
+					$moment.text(moment(timestamp).twitter());
+
+					next(null);
 				},
 				callback
 			);

@@ -1,0 +1,4 @@
+span.scale-fade
+	span.guildLoading(ng-if="objectiveState.owner_guild && !objectiveGuild"): i(class="fa fa-spinner fa-spin")
+	a(ng-if="objectiveState.owner_guild && objectiveGuild", ng-click="gotoGuild(objectiveState.owner_guild)", title="{{objectiveGuild.guild_name}}")
+		| {{objectiveGuild.guild_name}} [{{objectiveGuild.tag}}]

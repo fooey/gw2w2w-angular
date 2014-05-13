@@ -22,10 +22,11 @@
 														| {{scores[match.wvw_match_id][worldConfig.index] | number}}
 								.col-md-4.hidden-xs.hidden-sm
 									.pieChart.pull-right
-										img.pieChart(ng-src="{{'http://piely.net/60/' + scores[match.wvw_match_id].join(',') + '?strokeWidth=2'}}")
+										//- img.pieChart(ng-src="{{'http://piely.net/60/' + scores[match.wvw_match_id].join(',') + '?strokeWidth=2'}}")
+										pie-chart(scores="scores[match.wvw_match_id]", size="60", strokewidth="'2px'")
 
 	#overviewWorlds.row
-		.col-md-12(ng-repeat="region in gw2.regions | orderBy:'name':true")
+		.col-md-12(ng-repeat="region in gw2.regions | orderBy:'name':true") 
 			.panel.panel-default
 				.panel-heading: strong {{region.name}} Servers
 				.panel-body
