@@ -51,6 +51,85 @@ angular.module('gw2app').service('GW2DataSvc', [function() {
 				'panelClass': 'panel-success',
 			},],
 
+			objectives: {
+				1: {"id": 1, "name": "Keep"},
+				2: {"id": 2, "name": "Keep"},
+				3: {"id": 3, "name": "Keep"},
+				4: {"id": 4, "name": "Green Mill"},
+				5: {"id": 5, "name": "Red Mine"},
+				6: {"id": 6, "name": "Red Mill"},
+				7: {"id": 7, "name": "Blue Mine"},
+				8: {"id": 8, "name": "Blue Mill"},
+				9: {"id": 9, "name": "Castle"},
+				10: {"id": 10, "name": "Green Mine"},
+				11: {"id": 11, "name": "Tower"},
+				12: {"id": 12, "name": "Tower"},
+				13: {"id": 13, "name": "Tower"},
+				14: {"id": 14, "name": "Tower"},
+				15: {"id": 15, "name": "Tower"},
+				16: {"id": 16, "name": "Tower"},
+				17: {"id": 17, "name": "Tower"},
+				18: {"id": 18, "name": "Tower"},
+				19: {"id": 19, "name": "Tower"},
+				20: {"id": 20, "name": "Tower"},
+				21: {"id": 21, "name": "Tower"},
+				22: {"id": 22, "name": "Tower"},
+				23: {"id": 23, "name": "Keep"},
+				25: {"id": 25, "name": "Tower"},
+				24: {"id": 24, "name": "Orchard"},
+				26: {"id": 26, "name": "Tower"},
+				27: {"id": 27, "name": "Keep"},
+				28: {"id": 28, "name": "Tower"},
+				29: {"id": 29, "name": "Crossroads"},
+				30: {"id": 30, "name": "Tower"},
+				31: {"id": 31, "name": "Keep"},
+				32: {"id": 32, "name": "Keep"},
+				33: {"id": 33, "name": "Keep"},
+				34: {"id": 34, "name": "Orchard"},
+				35: {"id": 35, "name": "Tower"},
+				36: {"id": 36, "name": "Tower"},
+				37: {"id": 37, "name": "Keep"},
+				38: {"id": 38, "name": "Tower"},
+				39: {"id": 39, "name": "Crossroads"},
+				40: {"id": 40, "name": "Tower"},
+				41: {"id": 41, "name": "Keep"},
+				42: {"id": 42, "name": "Tower"},
+				43: {"id": 43, "name": "Orchard"},
+				44: {"id": 44, "name": "Keep"},
+				45: {"id": 45, "name": "Tower"},
+				46: {"id": 46, "name": "Keep"},
+				47: {"id": 47, "name": "Tower"},
+				48: {"id": 48, "name": "Quarry"},
+				49: {"id": 49, "name": "Workshop"},
+				50: {"id": 50, "name": "Fishing Village"},
+				51: {"id": 51, "name": "Lumber Mill"},
+				52: {"id": 52, "name": "Quarry"},
+				53: {"id": 53, "name": "Workshop"},
+				54: {"id": 54, "name": "Lumber Mill"},
+				55: {"id": 55, "name": "Fishing Village"},
+				56: {"id": 56, "name": "Crossroads"},
+				57: {"id": 57, "name": "Tower"},
+				58: {"id": 58, "name": "Quarry"},
+				59: {"id": 59, "name": "Workshop"},
+				60: {"id": 60, "name": "Lumber Mill"},
+				61: {"id": 61, "name": "Fishing Village"},
+				// 62: {"id": 62, "name": "((Temple of Lost Prayers))"},
+				// 63: {"id": 63, "name": "((Battle's Hollow))"},
+				// 64: {"id": 64, "name": "((Bauer's Estate))"},
+				// 65: {"id": 65, "name": "((Orchard Overlook))"},
+				// 66: {"id": 66, "name": "((Carver's Ascent))"},
+				// 67: {"id": 67, "name": "((Carver's Ascent))"},
+				// 68: {"id": 68, "name": "((Orchard Overlook))"},
+				// 69: {"id": 69, "name": "((Bauer's Estate))"},
+				// 70: {"id": 70, "name": "((Battle's Hollow))"},
+				// 71: {"id": 71, "name": "((Temple of Lost Prayers))"},
+				// 72: {"id": 72, "name": "((Carver's Ascent))"},
+				// 73: {"id": 73, "name": "((Orchard Overlook))"},
+				// 74: {"id": 74, "name": "((Bauer's Estate))"},
+				// 75: {"id": 75, "name": "((Battle's Hollow))"},
+				// 76: {"id": 76, "name": "((Temple of Lost Prayers))"},
+			},
+
 			commonNames: {
 				'en': ",Overlook,Valley,Lowlands,Golanta Clearing,Pangloss Rise,Speldan Clearcut,Danelon Passage,Umberglade Woods,Stonemist Castle,Rogue's Quarry,Aldon's Ledge,Wildcreek Run,Jerrifer's Slough,Klovan Gully,Langor Gulch,Quentin Lake,Mendon's Gap,Anzalias Pass,Ogrewatch Cut,Veloka Slope,Durios Gulch,Bravost Escarpment,Garrison,Champion's Demense,Redbriar,Greenlake,Ascension Bay,Dawn's Eyrie,The Spiritholme,Woodhaven,Askalion Hills,Etheron Hills,Dreaming Bay,Victor's Lodge,Greenbriar,Bluelake,Garrison,Longview,The Godsword,Cliffside,Shadaran Hills,Redlake,Hero's Lodge,Dreadfall Bay,Bluebriar,Garrison,Sunnyhill,Faithleap,Bluevale Refuge,Bluewater Lowlands,Astralholme,Arah's Hope,Greenvale Refuge,Foghaven,Redwater Lowlands,The Titanpaw,Cragtop,Godslore,Redvale Refuge,Stargrove,Greenwater Lowlands,Temple of Lost Prayers,Battle's Hollow,Bauer's Estate,Orchard Overlook,Carver's Ascent,Carver's Ascent,Orchard Overlook,Bauer's Estate,Battle's Hollow,Temple of Lost Prayers,Carver's Ascent,Orchard Overlook,Bauer's Estate,Battle's Hollow,Temple of Lost Prayers".split(','),
 				'fr': ",Belvédère,Vallée,Basses terres,Clairière de Golanta,Montée de Pangloss,Forêt rasée de Speldan,Passage Danelon,Bois d'Ombreclair,Château Brumepierre,Carrière des voleurs,Corniche d'Aldon,Piste du Ruisseau sauvage,Bourbier de Jerrifer,Petit ravin de Klovan,Ravin de Langor,Lac Quentin,Faille de Mendon,Col d'Anzalias,Percée de Gardogre,Flanc de Veloka,Ravin de Durios,Falaise de Bravost,Garnison,Fief du champion,Bruyerouge,Lac Vert,Baie de l'Ascension,Promontoire de l'aube,L'antre des esprits,Gentesylve,Collines d'Askalion,Collines d'Etheron,Baie des rêves,Pavillon du vainqueur,Vertebranche,Lac bleu,Garnison,Longuevue,L'Epée divine,Flanc de falaise,Collines de Shadaran,Rougelac,Pavillon du Héros,Baie du Noir déclin,Bruyazur,Garnison,Colline ensoleillée,Ferveur,Refuge de bleuval,Basses terres d'Eau-Azur,Astralholme,Espoir d'Arah,Refuge de Valvert,Havre gris,Basses terres de Rubicon,Bras du titan,Sommet de l'escarpement,Divination,Refuge de Valrouge,Bosquet stellaire,Basses terres d'Eau-Verdoyante,Temple des prières perdues,Vallon de bataille,Domaine de Bauer,Belvédère du Verger,Côte du couteau,Côte du couteau,Belvédère du Verger,Domaine de Bauer,Vallon de bataille,Temple des prières perdues,Côte du couteau,Belvédère du Verger,Domaine de Bauer,Vallon de bataille,Temple des prières perdues".split(','),
@@ -59,44 +138,44 @@ angular.module('gw2app').service('GW2DataSvc', [function() {
 			},
 
 			objectiveTypes: {
-				'1': {id: 1, timer: 1, value: 35, type: 'castle'},
-				'2': {id: 2, timer: 1, value: 25, type: 'keep'},
-				'3': {id: 3, timer: 1, value: 10, type: 'tower'},
-				'4': {id: 4, timer: 1, value: 5, type: 'camp'},
-				'5': {id: 5, timer: 0, value: 0, type: 'temple'},
-				'6': {id: 6, timer: 0, value: 0, type: 'hollow'},
-				'7': {id: 7, timer: 0, value: 0, type: 'estate'},
-				'8': {id: 8, timer: 0, value: 0, type: 'overlook'},
-				'9': {id: 9, timer: 0, value: 0, type: 'ascent'},
+				1: {id: 1, timer: 1, value: 35, name: 'castle'},
+				2: {id: 2, timer: 1, value: 25, name: 'keep'},
+				3: {id: 3, timer: 1, value: 10, name: 'tower'},
+				4: {id: 4, timer: 1, value: 5, name: 'camp'},
+				5: {id: 5, timer: 0, value: 0, name: 'temple'},
+				6: {id: 6, timer: 0, value: 0, name: 'hollow'},
+				7: {id: 7, timer: 0, value: 0, name: 'estate'},
+				8: {id: 8, timer: 0, value: 0, name: 'overlook'},
+				9: {id: 9, timer: 0, value: 0, name: 'ascent'},
 			},
 
 			objectiveMeta: {
 				//	EBG
-				9: {type: 1, timer: 1, d: 0, n: 0, s: 0, w: 0, e: 0},		// Stonemist Castle
+				9: {type: 1, timer: 1, d: 0, n: 0, s: 0, w: 0, e: 0},	// Stonemist Castle
 
-				1: {type: 2, timer: 1, d: 1, n: 1, s: 0, w: 0, e: 0},		// Red Keep - Overlook
+				1: {type: 2, timer: 1, d: 1, n: 1, s: 0, w: 0, e: 0},	// Red Keep - Overlook
 				17: {type: 3, timer: 1, d: 1, n: 1, s: 0, w: 1, e: 0},	// Red Tower - Mendon's Gap
 				20: {type: 3, timer: 1, d: 1, n: 1, s: 0, w: 0, e: 1},	// Red Tower - Veloka Slope
 				18: {type: 3, timer: 1, d: 1, n: 0, s: 1, w: 1, e: 0},	// Red Tower - Anzalias Pass
 				19: {type: 3, timer: 1, d: 1, n: 0, s: 1, w: 0, e: 1},	// Red Tower - Ogrewatch Cut
-				6: {type: 4, timer: 1, d: 1, n: 0, s: 0, w: 1, e: 0},		// Red Camp - Mill - Speldan
-				5: {type: 4, timer: 1, d: 1, n: 0, s: 0, w: 0, e: 1},		// Red Camp - Mine - Pangloss
+				6: {type: 4, timer: 1, d: 1, n: 0, s: 0, w: 1, e: 0},	// Red Camp - Mill - Speldan
+				5: {type: 4, timer: 1, d: 1, n: 0, s: 0, w: 0, e: 1},	// Red Camp - Mine - Pangloss
 
-				2: {type: 2, timer: 1, d: 1, n: 0, s: 1, w: 0, e: 1},		// Blue Keep - Valley
+				2: {type: 2, timer: 1, d: 1, n: 0, s: 1, w: 0, e: 1},	// Blue Keep - Valley
 				15: {type: 3, timer: 1, d: 1, n: 0, s: 1, w: 1, e: 0},	// Blue Tower - Langor Gulch
 				22: {type: 3, timer: 1, d: 1, n: 0, s: 1, w: 0, e: 1},	// Blue Tower - Bravost Escarpment
 				16: {type: 3, timer: 1, d: 1, n: 1, s: 0, w: 1, e: 0},	// Blue Tower - Quentin Lake
 				21: {type: 3, timer: 1, d: 1, n: 1, s: 0, w: 0, e: 1},	// Blue Tower - Durios Gulch
-				7: {type: 4, timer: 1, d: 1, n: 0, s: 1, w: 0, e: 0},		// Blue Camp - Mine - Danelon
-				8: {type: 4, timer: 1, d: 1, n: 0, s: 0, w: 0, e: 1},		// Blue Camp - Mill - Umberglade
+				7: {type: 4, timer: 1, d: 1, n: 0, s: 1, w: 0, e: 0},	// Blue Camp - Mine - Danelon
+				8: {type: 4, timer: 1, d: 1, n: 0, s: 0, w: 0, e: 1},	// Blue Camp - Mill - Umberglade
 
-				3: {type: 2, timer: 1, d: 1, n: 1, s: 0, w: 0, e: 0},		// Green Keep - Lowlands
+				3: {type: 2, timer: 1, d: 1, n: 1, s: 0, w: 0, e: 0},	// Green Keep - Lowlands
 				11: {type: 3, timer: 1, d: 1, n: 0, s: 1, w: 1, e: 0},	// Green Tower - Aldons
 				13: {type: 3, timer: 1, d: 1, n: 0, s: 1, w: 0, e: 1},	// Green Tower - Jerrifer's Slough
 				12: {type: 3, timer: 1, d: 1, n: 1, s: 0, w: 1, e: 0},	// Green Tower - Wildcreek
 				14: {type: 3, timer: 1, d: 1, n: 1, s: 0, w: 0, e: 1},	// Green Tower - Klovan Gully
 				10: {type: 4, timer: 1, d: 1, n: 1, s: 0, w: 0, e: 0},	// Green Camp - Mine - Rogues Quarry
-				4: {type: 4, timer: 1, d: 1, n: 0, s: 0, w: 0, e: 1},		// Green Camp - Mill - Golanta
+				4: {type: 4, timer: 1, d: 1, n: 0, s: 0, w: 0, e: 1},	// Green Camp - Mill - Golanta
 
 				//	BlueHome
 				23: {type: 2, timer: 1, d: 1, n: 1, s: 0, w: 0, e: 0},	// Garrison
@@ -233,6 +312,27 @@ angular.module('gw2app').service('GW2DataSvc', [function() {
 	};
 
 
+
+
+	(function enrichObjectives() {
+		angular.forEach(
+			svc.wvw.objectives,
+			function(objective, id) {
+				objective.meta = svc.wvw.objectiveMeta[id];
+				objective.type = svc.wvw.objectiveTypes[objective.meta.type];
+				objective.name = {};
+
+				angular.forEach(
+					svc.langs,
+					function(lang) {
+						objective.name[lang.slug] = svc.wvw.commonNames[lang.slug][objective.id];
+					}
+				)
+			}
+		);
+	})();
+
+
 	(function setMapObjectives() {
 		angular.forEach(
 			svc.wvw.objectiveGroups,
@@ -318,9 +418,9 @@ angular.module('gw2app').service('GW2DataSvc', [function() {
 	*	wvw objectives
 	*/
 
-	svc.getObjectiveType = function getObjectiveType(genericName) {
-		return __INSTANCE.objectiveTypeLookup[genericName.toLowerCase()] || svc.wvw.objectiveTypes[4];
-	};
+	// svc.getObjectiveType = function getObjectiveType(genericName) {
+	// 	return __INSTANCE.objectiveTypeLookup[genericName.toLowerCase()] || svc.wvw.objectiveTypes[4];
+	// };
 
 
 	/*

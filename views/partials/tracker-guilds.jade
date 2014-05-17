@@ -1,29 +1,5 @@
 #trackerGuilds
 	.table-responsive
-
-		//- table.table-condensed()
-		//- 	tr.guildInfo.scale-fade(ng-repeat="coGuild in matchGuildsClaimOrder[active.match.wvw_match_id] | orderBy:'timestamp':true")
-		//- 		td.guildEmblem
-		//- 			span.scale-fade(ng-if="guilds[coGuild.id]") 
-		//- 				img.emblem(ng-src="{{'http://guilds.gw2w2w.com/' + coGuild.id + '.svg'}}")
-		//- 			span.guildLoading(ng-if="!guilds[coGuild.id]")
-		//- 				i(class="fa fa-spinner fa-spin")
-		//- 		td.guildDetails
-		//- 			h3(id="{{coGuild.id}}")
-		//- 				span.scale-fade(ng-if="guilds[coGuild.id]")
-		//- 					| {{guilds[coGuild.id].guild_name}} [{{guilds[coGuild.id].tag}}]
-		//- 				span.guildLoading(ng-if="!guilds[coGuild.id]")
-		//- 					i(class="fa fa-spinner fa-spin")
-
-		//- 			ul.guildClaims.list-unstyled
-		//- 				li(ng-repeat="claim in matchGuilds[active.match.wvw_match_id][coGuild.id].claims | orderBy:'timestamp':true")
-		//- 					span.objectiveIcon: i.sprite(class="{{objectives[claim.id].type.type}}")
-		//- 					//- span.moment {{event.twitter}}
-		//- 					span.timestamp {{claim.timestamp | date:'hh:mm:ss'}}
-		//- 					//- span.eventType {{event.type}}
-		//- 					span.objective {{gw2.wvw.commonNames[active.lang.slug][claim.id]}}
-
-
 		table.table-condensed()
 			tr.guildInfo.scale-fade(ng-repeat="guild in matchGuilds[active.match.wvw_match_id] | toArray | orderBy:['latestClaim']:true")
 				td.guildEmblem
@@ -45,13 +21,12 @@
 							class="{{objectivesState[claim.id].owner.toLowerCase()}}",
 						)
 							gw2-objective(
-								columns="['timer', 'timestamp', 'mapName', 'icon', 'direction', 'name']",
-								timestamp="claim.timestamp",
-								objective-map-name="gw2.wvw.mapObjectives[claim.id].mapName.replace('Home', '')",
-								common-name="gw2.wvw.commonNames[active.lang.slug][claim.id]",
-								objective-id="claim.id",
-								objective="objectives[claim.id]",
-								objective-state="objectivesState[claim.id]",
-								objective-meta="gw2.wvw.objectiveMeta[claim.id]",
-								objective-guild="guilds[objectivesState[claim.id].owner_guild]",
+								is-static = "true",
+								columns = "['timer', 'timestamp', 'mapName', 'icon', 'direction', 'name']",
+								timestamp = "claim.timestamp",
+								lang-key = "active.lang.slug",
+								map-name = "gw2.wvw.mapObjectives[claim.id].mapName.replace('Home', '')",
+								objective = "objectives[claim.id]",
+								state = "state[claim.id]",
+								guild = "guilds[state[claim.id].owner_guild]",
 							)

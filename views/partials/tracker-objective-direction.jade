@@ -1,2 +1,2 @@
-img(ng-if="objectiveMeta.d", ng-src="{{directionArrow}}")
-i.fa.fa-crosshairs(ng-if="!objectiveMeta.d")
+img(ng-if="objective.meta.d", ng-src="{{getDirectionArrow(objective.meta)}}")
+i.fa.fa-crosshairs(ng-if="!objective.meta.d")

@@ -10,13 +10,12 @@ section.objectiveGroup(
 			.col-xs-8.text-right.name {{active.matchDetails.maps[oGroup.mapIndex].scores[worldConfig.index] | number}}
 
 	div.objectiveSection(ng-repeat="(sectionIndex, section) in oGroup.sections")
-		div(ng-repeat="(objIndex, objectiveId) in section.objectives", class="{{objectivesState[objectiveId].owner | lowercase}}", id="objective{{objectiveId}}")
+		div(ng-repeat="(objIndex, objectiveId) in section.objectives", id="objective{{objectiveId}}")
 			gw2-objective(
-				columns="['icon', 'direction', 'name', 'timer', 'guildTag']",
-				common-name="gw2.wvw.commonNames[active.lang.slug][objectiveId]",
-				objective-id="objectiveId",
-				objective="objectives[objectiveId]",
-				objective-state="objectivesState[objectiveId]",
-				objective-meta="gw2.wvw.objectiveMeta[objectiveId]",
-				objective-guild="guilds[objectivesState[objectiveId].owner_guild]"
+				columns = "['icon', 'direction', 'name', 'timer', 'guildTag']",
+				lang-key = "active.lang.slug",
+
+				objective = "objectives[objectiveId]",
+				state = "state[objectiveId]",
+				guild = "guilds[state[objectiveId].owner_guild]",
 			)

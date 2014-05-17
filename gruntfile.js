@@ -235,6 +235,8 @@ module.exports = function(grunt) {
 						'public/src/js/filters.js',
 						'public/src/js/directives.js',
 
+						// 'public/src/js/components/objective.js',
+
 						'public/src/js/services/memCache.js',
 						'public/src/js/services/localstorage.js',
 						'public/src/js/services/i18n.js',

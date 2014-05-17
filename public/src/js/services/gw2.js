@@ -279,38 +279,38 @@ function(
 	*
 	*/
 
-	function __getObjectivesRemote(cacheKey, onDone) {
-		var cacheTime = 1000 * 60 * 60; // 1 hour
-		var tmpObjectives = {};
+	// function __getObjectivesRemote(cacheKey, onDone) {
+	// 	var cacheTime = 1000 * 60 * 60; // 1 hour
+	// 	var tmpObjectives = {};
 
-		$rootScope.inProgress[cacheKey] = true;
-		GW2ApiSvc.getObjectives({}, function(err, tmpObjectives) {
+	// 	$rootScope.inProgress[cacheKey] = true;
+	// 	GW2ApiSvc.getObjectives({}, function(err, tmpObjectives) {
 
-			var objectives = {};
-			async.each(
-				tmpObjectives,
-				function(objective, nextObjective) {
-					objective.id = parseInt(objective.id);
-					objective.type = svc.data.getObjectiveType(objective.name);
+	// 		var objectives = {};
+	// 		async.each(
+	// 			tmpObjectives,
+	// 			function(objective, nextObjective) {
+	// 				objective.id = parseInt(objective.id);
+	// 				objective.type = svc.data.getObjectiveType(objective.name);
 
-					tmpObjectives[objectives.id] = objective;
-					nextObjective();
-				},
-				function(err) {
+	// 				tmpObjectives[objectives.id] = objective;
+	// 				nextObjective();
+	// 			},
+	// 			function(err) {
 
-					delete $rootScope.inProgress[cacheKey];
+	// 				delete $rootScope.inProgress[cacheKey];
 
-					LocalStorageSvc.put(
-						cacheKey,
-						tmpObjectives,
-						cacheTime,
-						svc.getObjectives.bind(null, onDone)
-					);
-				}
-			);
+	// 				LocalStorageSvc.put(
+	// 					cacheKey,
+	// 					tmpObjectives,
+	// 					cacheTime,
+	// 					svc.getObjectives.bind(null, onDone)
+	// 				);
+	// 			}
+	// 		);
 
-		});
-	}
+	// 	});
+	// }
 
 
 

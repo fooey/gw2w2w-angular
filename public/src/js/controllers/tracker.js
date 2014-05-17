@@ -189,21 +189,13 @@ function(
 			'BlueHome': $scope.matchWorldsByColor.blue[$scope.active.lang.slug].name,
 			'GreenHome': $scope.matchWorldsByColor.green[$scope.active.lang.slug].name,
 		};
-		console.log('$scope.matchWorldsByColor', $scope.matchWorldsByColor);
-		console.log('$scope.mapNamesByType', $scope.mapNamesByType);
 
-		if (angular.equals($scope.prevMatchId, $scope.active.matchId)) {
-			$scope.objectivesState = $scope.objectivesState;
-			$scope.timeline = $scope.timeline;
-			$scope.guilds = $scope.guilds;
-			$scope.matchGuilds = $scope.matchGuilds;
-		}
-		else {
-			$scope.objectivesState = null;
-			$scope.timeline = [];
-			$scope.guilds = {};
-			$scope.matchGuilds = {};
-		}
+		// $scope.objectives = {};
+		$scope.state = {};
+		$scope.guilds = {};
+		$scope.timeline = [];
+		$scope.matchGuilds = {};
+
 
 		console.log('Scope Inited');
 
@@ -350,10 +342,12 @@ function(
 	*/
 
 	function __setObjectives(callback) {
-		GW2Svc.getObjectives(function(err, objectives) {
-			$scope.objectives = objectives;
-			callback();
-		});
+		$scope.objectives = GW2Svc.data.wvw.objectives;
+		// GW2Svc.getObjectives(function(err, objectives) {
+		// 	$scope.objectives = objectives;
+		// 	callback();
+		// });
+		callback();
 	}
 
 
@@ -381,7 +375,9 @@ function(
 		if (!newMD && !oldMD) {
 			callback();
 		}
-		if (newMD && !oldMD && !$scope.objectivesState) {
+		$scope.matchStateIntialized = $scope.matchStateIntialized || false;
+		if (newMD && !oldMD && !$scope.matchStateIntialized) {
+			$scope.matchStateIntialized = true;
 			__initState(newMD, callback);
 		}
 		if (newMD && oldMD) {
@@ -392,25 +388,31 @@ function(
 
 	function __initState(newMD, callback) {
 		// console.log('__initState');
-		var now = dateSeconds();
+		var now = roundToSecond($scope.initTime);
 
-		var objectives = __getObjectivesFromDetails(newMD);
-		angular.forEach(objectives, function(objective) {
+		var mdObjectives = __getObjectivesFromDetails(newMD);
+		angular.forEach(mdObjectives, function(mdObjective) {
 			// now = _.random(dateSeconds() - 1000 * 60 * 10, dateSeconds());
 			// now = Math.round(now / 1000) * 1000
-			objective.initTime = $scope.initTime;
-			objective.lastCaptured = objective.lastCaptured || $scope.initTime;
+			mdObjective.initTime = now;
+			mdObjective.lastCaptured = mdObjective.initTime;
 
-			objective.buffRemaining = (objective.lastCaptured + 1000 * 60 * 5);
-			// __appendToTimeline(objective.lastCaptured, 'newOwner', objective);
+			// mdObjective.buffRemaining = (mdObjective.lastCaptured + 1000 * 60 * 5);
+			// __appendToTimeline(mdObjective.lastCaptured, 'newOwner', mdObjective);
 
-			if (objective.owner_guild) {
-				objective.lastClaimed = objective.lastClaimed || _.random(objective.lastCaptured - 1000 * 60 * 10, objective.lastCaptured);
-				// __appendToTimeline(now, 'newClaimer', objective);
-				__updateMatchGuild(objective.lastCaptured, objective.owner_guild, objective.id);
+			if (mdObjective.owner_guild) {
+				mdObjective.lastClaimed = now;
+				// __appendToTimeline(now, 'newClaimer', mdObjective);
+				__updateMatchGuild(mdObjective.lastCaptured, mdObjective.owner_guild, mdObjective.id);
 			}
+			else if ($scope.objectives[mdObjective.id] && $scope.objectives[mdObjective.id].guild) {
+				delete $scope.objectives[mdObjective.id].guild;
+			}
+
+			
+			$scope.state[mdObjective.id] = mdObjective;
 		});
-		$scope.objectivesState = objectives;
+
 
 		callback();
 	}
@@ -426,11 +428,10 @@ function(
 		// console.log('__updateState');
 
 		angular.forEach($scope.objectives, function(obj) {
-			var meta = $scope.gw2.wvw.objectiveMeta[obj.id];
 
-			if (meta && meta.timer) {
-				var objType = (meta) ? $scope.gw2.wvw.objectiveTypes[meta.type] : null;
-				var objState = $scope.objectivesState[obj.id];
+			if (obj.meta && obj.meta.timer) {
+				var state = $scope.state[obj.id];
+
 				var oldObj = oldObjs[obj.id];
 				var newObj = newObjs[obj.id];
 
@@ -439,36 +440,37 @@ function(
 				var hasClaimer = !!newObj.owner_guild;
 
 
+
 				if (ownerChanged || claimerChanged) {
-					var commonName = GW2Svc.data.wvw.commonNames[$scope.active.lang.slug][obj.id];
+					var commonName = obj.name[$scope.active.lang.slug];
 
 					if (ownerChanged) {
-						console.log(Date.now(), 'newOwner');
-						objState.owner = newObj.owner;
-						objState.prevOwner = oldObj.owner;
-						objState.lastCaptured = now;
-						objState.buffRemaining = (objState.lastCaptured + 1000 * 60 * 5);
-						delete objState.owner_guild;
+						console.log(now, 'newOwner');
+						state.owner = newObj.owner;
+						state.prevOwner = oldObj.owner;
+						state.lastCaptured = now;
+						// state.buffRemaining = (state.lastCaptured + 1000 * 60 * 5);
+						delete state.owner_guild;
 
 						__appendToTimeline(now, 'newOwner', newObj);
 					}
 					if (claimerChanged) {
-						objState.owner_guild = newObj.owner_guild;
+						state.owner_guild = newObj.owner_guild;
 
 						if (hasClaimer) {
-							console.log(Date.now(), 'newClaimer');
-							objState.lastClaimed = now;
+							console.log(now, 'newClaimer');
+							state.lastClaimed = now;
 							__appendToTimeline(now, 'newClaimer', newObj);
 							__updateMatchGuild(now, newObj.owner_guild, newObj.id);
 						}
 						else {
-							console.log(Date.now(), '************ dropClaimer');
+							console.log(now, '************ dropClaimer');
 						}
 					}
 
 					$scope.playNotificationSound();
 
-					console.log(Date.now(), commonName, objState, oldObj, newObj);
+					console.log(now, commonName, state, oldObj, newObj);
 				}
 
 			}
@@ -478,7 +480,7 @@ function(
 		callback();
 	}
 
-	var __updateStateThrottled = _.throttle(__updateState, 100);
+	var __updateStateThrottled = _.throttle(__updateState, 250);
 
 
 
@@ -500,6 +502,9 @@ function(
 			var knownGuilds = Object.keys($scope.guilds);
 			var guildsToLookup = _.difference(mdGuilds, knownGuilds);
 
+			// console.log('knownGuilds', knownGuilds);
+			// console.log('guildsToLookup', guildsToLookup);
+
 			async.each(
 				guildsToLookup,
 				__setGuild,
@@ -516,6 +521,13 @@ function(
 	function __setGuild(guildId, callback) {
 		GW2Svc.getGuildDetails(guildId, function(err, guild) {
 			$scope.guilds[guildId] = guild;
+
+			// angular.forEach($scope.objectives, function(o) {
+			// 	var state = $scope.state[o.id];
+			// 	if (state.owner_guild && state.owner_guild === guildId){
+			// 		o.guild = guild;
+			// 	}
+			// });
 			callback();
 		});
 	}
@@ -556,13 +568,22 @@ function(
 	*
 	*/
 
+	var timelineMaxSize = 50;
 	function __appendToTimeline(timestamp, type, objective) {
 		var objCloned = _.cloneDeep(objective);
+
+
 		$scope.timeline.push({
 			type: type,
 			objective: objCloned,
 			timestamp: timestamp,
 		});
+
+
+		if ($scope.timeline.length >= timelineMaxSize) {
+			console.log('timeline discard', $scope.timeline.shift());
+		}
+
 	}
 
 
@@ -576,7 +597,7 @@ function(
 
 	function __updateTimers() {
 		async.parallel([
-			__updateBuffTimers,
+			// __updateBuffTimers,
 			__updateTwitterMoments,
 		], angular.noop);
 	};
@@ -584,23 +605,25 @@ function(
 	$scope.intervals['__updateTimers'] = $interval(__updateTimers, 1000);
 
 
-	function __updateBuffTimers(callback) {
-		var now = dateSeconds();
+	// function __updateBuffTimers(callback) {
+	// 	var now = dateSeconds();
 
-		angular.forEach(
-			$scope.objectivesState,
-			function(oState) {
-				var useTimer = !!$scope.objectives[oState.id].type.timer;
-				if (useTimer && oState.buffRemaining) {
-					oState.buffRemaining = (oState.lastCaptured + 1000 * 60 * 5) - now;
-					if (oState.buffRemaining <= 0) {
-						delete oState.buffRemaining;
-					}
-				}
-			}
-		);
-		callback();
-	}
+	// 	// angular.forEach(
+	// 	// 	$scope.objectives,
+	// 	// 	function(objective) {
+	// 	// 		if (objective) {
+	// 	// 			var useTimer = objective.type.timer;
+	// 	// 			if (useTimer && objective.state.buffRemaining) {
+	// 	// 				objective.state.buffRemaining = (objective.state.lastCaptured + 1000 * 60 * 5) - now;
+	// 	// 				if (objective.state.buffRemaining <= 0) {
+	// 	// 					delete objective.state.buffRemaining;
+	// 	// 				}
+	// 	// 			}
+	// 	// 		}
+	// 	// 	}
+	// 	// );
+	// 	callback();
+	// }
 
 
 	function __updateTwitterMoments(callback) {
@@ -639,9 +662,14 @@ function(
 	}
 
 
+
 	function dateSeconds() {
 		// nearest second so that buff timers update at the same time
-		return Math.round(Date.now() / 1000) * 1000;
+		return roundToSecond(Date.now());
+	}
+
+	function roundToSecond(msDate) {
+		return Math.round(msDate / 1000) * 1000;
 	}
 
 }]);

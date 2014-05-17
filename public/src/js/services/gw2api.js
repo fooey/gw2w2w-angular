@@ -104,17 +104,17 @@ function(
 		}, callback);
 	};
 
-	svc.getObjectives = function getObjectives(params, callback, attemptNum) {
-		__get({
-			cacheKey: 'objectives',
-			cacheTime: 1000 * 60 * 60,  // 1 hour
-			apiUrl: __getObjectivesUrl(),
-			onRemoteData: __prepareObjectives,
-			fnValidator: function() {
-				return true;
-			},  //FIXME
-		}, callback);
-	};
+	// svc.getObjectives = function getObjectives(params, callback, attemptNum) {
+	// 	__get({
+	// 		cacheKey: 'objectives',
+	// 		cacheTime: 1000 * 60 * 60,  // 1 hour
+	// 		apiUrl: __getObjectivesUrl(),
+	// 		onRemoteData: __prepareObjectives,
+	// 		fnValidator: function() {
+	// 			return true;
+	// 		},  //FIXME
+	// 	}, callback);
+	// };
 
 
 	svc.getMatchDetails = function getMatchDetails(params, callback, attemptNum) {
@@ -225,18 +225,18 @@ function(
 	};
 
 
-	function __prepareObjectives(callback, jsonData, status) {
-		var objectives = {};
-		async.forEach(
-			jsonData,
-			function(objective, next) {
-				objective.type = GW2DataSvc.getObjectiveType(objective.name);
-				objectives[objective.id] = objective;
-				next();
-			},
-			callback.bind(null, objectives)
-		);
-	};
+	// function __prepareObjectives(callback, jsonData, status) {
+	// 	var objectives = {};
+	// 	async.forEach(
+	// 		jsonData,
+	// 		function(objective, next) {
+	// 			objective.type = GW2DataSvc.getObjectiveType(objective.name);
+	// 			objectives[objective.id] = objective;
+	// 			next();
+	// 		},
+	// 		callback.bind(null, objectives)
+	// 	);
+	// };
 
 
 	function prepareMatchDetails(callback, jsonData, status) {

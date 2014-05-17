@@ -31,18 +31,17 @@
 
 			ul#trackerLogEvents.list-unstyled
 				li.team.teamBgHover.event.slide-top.objective(
-					ng-repeat="(key, event) in filteredEvents = (timeline | logFilter:logFilters) | orderBy:'timestamp':true | limitTo:50",
-					class="{{event.objective.owner.toLowerCase()}}",
+					ng-repeat="(key, event) in filteredEvents = (timeline | logFilter:logFilters) | orderBy:'timestamp':true | limitTo:100"
 				)
 					gw2-objective(
-						columns="['moment', 'timestamp', 'mapName', 'icon', 'direction', 'name', 'descriptionType', 'timer', 'guildName']",
-						timestamp="event.timestamp",
-						objective-map-name="gw2.wvw.mapObjectives[event.objective.id].mapName.replace('Home', '')",
-						common-name="gw2.wvw.commonNames[active.lang.slug][event.objective.id]",
-						objective-id="event.objective.id",
-						objective="objectives[event.objective.id]",
-						objective-state="objectivesState[event.objective.id]",
-						objective-meta="gw2.wvw.objectiveMeta[event.objective.id]",
-						objective-guild="guilds[objectivesState[event.objective.id].owner_guild]",
-						description-type="event.type",
+						is-static = "true",
+						columns = "['moment', 'timestamp', 'mapName', 'icon', 'direction', 'name', 'descriptionType', 'timer', 'guildName']",
+						timestamp = "event.timestamp",
+						lang-key = "active.lang.slug",
+						map-name = "gw2.wvw.mapObjectives[event.objective.id].mapName.replace('Home', '')",
+						description-type = "event.type",
+
+						objective = "objectives[event.objective.id]",
+						state = "state[event.objective.id]",
+						guild = "guilds[state[event.objective.id].owner_guild]",
 					)

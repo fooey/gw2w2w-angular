@@ -1,4 +1,8 @@
 span.scale-fade
-	span.guildLoading(ng-if="objectiveState.owner_guild && !objectiveGuild"): i(class="fa fa-spinner fa-spin")
-	a(ng-if="objectiveState.owner_guild && objectiveGuild", ng-click="gotoGuild(objectiveState.owner_guild)", title="{{objectiveGuild.guild_name}}")
-		| [{{objectiveGuild.tag}}]
+	span.guildLoading(ng-if="state.owner_guild && !guild"): i(class="fa fa-spinner fa-spin")
+	a(
+		ng-if="state.owner_guild && guild", 
+		ng-click="gotoGuild(state.owner_guild)", 
+		title="{{guild.guild_name}}"
+	)
+		| [{{guild.tag}}]

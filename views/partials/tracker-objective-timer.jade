@@ -1,4 +1,4 @@
 span.scale-fade(
-	ng-if="objectiveState.buffRemaining > 0",
-	ng-class="{'timer-placeholder': objectiveState.lastCaptured <= objectiveState.initTime}"
-) {{objectiveState.buffRemaining | date:'m:ss'}}
+	ng-if="buffTimer() > 0",
+	ng-class="{'timer-placeholder': state.lastCaptured <= state.initTime}"
+) {{buffTimer() | date:'m:ss'}}

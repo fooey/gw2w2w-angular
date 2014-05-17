@@ -212,6 +212,22 @@ body {
   background-clip: padding-box;
   border: 1px solid #fff;
 }
+#trackerObjectives .objectiveGroup.inactive {
+  zoom: 1;
+  filter: alpha(opacity=50);
+  -webkit-opacity: 0.5;
+  -moz-opacity: 0.5;
+  opacity: 0.5;
+  -webkit-filter: blur(1px);
+  -moz-filter: blur(1px);
+  -ms-filter: blur(1px);
+  filter: blur(1px);
+  -webkit-transform: scale(0.95);
+  -moz-transform: scale(0.95);
+  -o-transform: scale(0.95);
+  -ms-transform: scale(0.95);
+  transform: scale(0.95);
+}
 #trackerObjectives h4 {
   margin: 4px 0 6px 0;
   padding: 2px 4px;
