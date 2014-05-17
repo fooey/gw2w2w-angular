@@ -197,7 +197,7 @@ function(
 		$scope.matchGuilds = {};
 
 
-		console.log('Scope Inited');
+		// console.log('Scope Inited');
 
 		callback();
 	}
@@ -445,7 +445,7 @@ function(
 					var commonName = obj.name[$scope.active.lang.slug];
 
 					if (ownerChanged) {
-						console.log(now, 'newOwner');
+						// console.log(now, 'newOwner');
 						state.owner = newObj.owner;
 						state.prevOwner = oldObj.owner;
 						state.lastCaptured = now;
@@ -458,19 +458,19 @@ function(
 						state.owner_guild = newObj.owner_guild;
 
 						if (hasClaimer) {
-							console.log(now, 'newClaimer');
+							// console.log(now, 'newClaimer');
 							state.lastClaimed = now;
 							__appendToTimeline(now, 'newClaimer', newObj);
 							__updateMatchGuild(now, newObj.owner_guild, newObj.id);
 						}
 						else {
-							console.log(now, '************ dropClaimer');
+							// console.log(now, '************ dropClaimer');
 						}
 					}
 
 					$scope.playNotificationSound();
 
-					console.log(now, commonName, state, oldObj, newObj);
+					// console.log(now, commonName, state, oldObj, newObj);
 				}
 
 			}
@@ -581,7 +581,7 @@ function(
 
 
 		if ($scope.timeline.length >= timelineMaxSize) {
-			console.log('timeline discard', $scope.timeline.shift());
+			$scope.timeline.shift();
 		}
 
 	}
@@ -652,7 +652,7 @@ function(
 		var msSinceInit = (Date.now() - $scope.initTime);
 		var expired = msSinceInit > 1000 * 60 * 5;
 		if (expired) {
-			console.log('Timers now accurate');
+			// console.log('Timers now accurate');
 			$scope.timersAccurate = true;
 		}
 		else {
